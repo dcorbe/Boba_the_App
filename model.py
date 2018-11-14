@@ -34,7 +34,7 @@ class Rating(db.Model):
     __tablename__ = "ratings"
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    boba_shop_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    boba_shop_id = db.Column(db.Integer, db.ForeignKey('bobashops.shop_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     score = db.Column(db.Integer)
 

@@ -12,7 +12,7 @@ import os
 import json
 
 key = os.getenv("GOOGLE_PLACES_KEY")
-print('key: ', key)
+
 
 app = Flask(__name__)
 

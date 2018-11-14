@@ -12,23 +12,20 @@ function nearbySearchCallback(results, status) {
     let lat = result["geometry"]["location"].lat()
     let lng = result["geometry"]["location"].lng()
     let bobaShopName = result["name"]
-    // $('p').append(bobaShopName + "  ")
-    const markers = [];
-    markers.push(addMarker('static/imgs/marker.png', {lat: lat, lng: lng}, bobaShopName, map));
+    $('p').append(bobaShopName + "  ")
+    let marker = addMarker('static/imgs/marker.png', {lat: lat, lng: lng}, bobaShopName, map);
+    let address = result["vicinity"]
+    const aboutLocation = `<h1>${marker.title}</h1>
+      <p> Put an Image here </p>
+      <ul>
+        <li><b>Address:</b> ${address}</li>
+        <li><b>Phone :</b> ${marker.position.lng()}</li>
 
-
-    // Loop over markers list to attach click handlers
-    for (let marker of markers) {
-      const aboutLocation = `<h1>Boba Shop - ${marker.title}</h1>
-        <p>Located at</p>
-        <ul>
-          <li><b>Lat:</b> ${marker.position.lat()}</li>
-          <li><b>Lng:</b> ${marker.position.lng()}</li>
-        </ul>
-        `;
+      </ul>
+      `;
 
       addInfoWindowToMarker(aboutLocation, marker, map);
-    }
+
 
 
   })

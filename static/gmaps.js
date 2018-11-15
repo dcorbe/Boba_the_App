@@ -4,7 +4,6 @@ var map;
 var userInfoWindow;
 var pos;
 
-
 function nearbySearchCallback(results, status) {
   console.log(results, status)
   results.forEach(function(result) {
@@ -13,8 +12,11 @@ function nearbySearchCallback(results, status) {
     let lng = result["geometry"]["location"].lng()
     let bobaShopName = result["name"]
     $('p').append(bobaShopName + "  ")
-    let marker = addMarker('static/imgs/marker.png', {lat: lat, lng: lng}, bobaShopName, map);
+    let marker = addMarker('static/imgs/boba.png', {lat: lat, lng: lng}, bobaShopName, map);
     let address = result["vicinity"]
+    let placeId = result["place_id"]
+
+
     const aboutLocation = `<h1>${marker.title}</h1>
       <p> Put an Image here </p>
       <ul>
@@ -23,11 +25,7 @@ function nearbySearchCallback(results, status) {
 
       </ul>
       `;
-
       addInfoWindowToMarker(aboutLocation, marker, map);
-
-
-
   })
 }
 
@@ -82,7 +80,7 @@ function addMarker(icon, position, title, map) {
 function addInfoWindowToMarker(content, marker, map) {
   const infoWindow = new google.maps.InfoWindow({
     content,
-    maxWidth: 200
+    maxWidth: 500
   });
 
   marker.addListener('click', () => infoWindow.open(map, marker));

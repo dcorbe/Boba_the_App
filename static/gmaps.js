@@ -3,11 +3,13 @@
 var map;
 var userInfoWindow;
 var pos;
+var ShopData;
+
 
 function nearbySearchCallback(results, status) {
-  console.log(results, status)
+  // console.log(results, status)
   results.forEach(function(result) {
-    console.log("result: ", result["name"])
+    // console.log("result: ", result["name"])
     let lat = result["geometry"]["location"].lat()
     let lng = result["geometry"]["location"].lng()
     let bobaShopName = result["name"]
@@ -16,19 +18,17 @@ function nearbySearchCallback(results, status) {
     let address = result["vicinity"]
     let placeId = result["place_id"]
 
+    var ShopData = {
+      placeId,
+      address,
+    }
 
-    const aboutLocation = `<h1>${marker.title}</h1>
-      <p> Put an Image here </p>
-      <ul>
-        <li><b>Address:</b> ${address}</li>
-        <li><b>Phone :</b> ${marker.position.lng()}</li>
 
-      </ul>
-      `;
-      addInfoWindowToMarker(aboutLocation, marker, map);
+    addInfoWindowToMarker(ShopData, marker, map);
   })
 }
 
+// look into turning off features of the map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.7886679, lng: -122.411499},
@@ -77,14 +77,40 @@ function addMarker(icon, position, title, map) {
   return marker;
 }
 
-function addInfoWindowToMarker(content, marker, map) {
-  const infoWindow = new google.maps.InfoWindow({
-    content,
-    maxWidth: 500
-  });
+function addInfoWindowToMarker(ShopData, marker, map) {
+  marker.addListener('click', () => {
 
-  marker.addListener('click', () => infoWindow.open(map, marker));
+    var detailsRequest = {
+      placeId: ShopData.placeId,
+      fields: ['photos', 'photo', 'rating', 'formatted_phone_number']
+    };
+
+    var service = new google.maps.places.PlacesService(map);
+    service.getDetails(detailsRequest, (place, status) => {
+      console.log(place)
+      var url = place.photos[3].getUrl({'maxWidth': 250, 'maxHeight': 200})
+      const aboutLocation = `
+        <h1>${marker.title}</h1>
+        <p> <img src=${url}> </img> </p>
+        <ul>
+          <li><b>Address:</b> ${ShopData.address}</li>
+          <li><b>Phone:</b> ${place.formatted_phone_number}</li>
+        </ul>
+      `;
+      console.log("mekkin window", aboutLocation)
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: aboutLocation,
+        maxWidth: 500
+      }, );
+      console.log("opening winnow")
+      infoWindow.open(map, marker)
+
+    })
+
+   });
 }
+
 
 function handleLocationError(browserHasGeolocation, userInfoWindow, pos) {
   userInfoWindow.setPosition(pos);

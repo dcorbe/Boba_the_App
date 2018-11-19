@@ -17,6 +17,7 @@ function nearbySearchCallback(results, status) {
     let marker = addMarker('static/imgs/boba.png', {lat: lat, lng: lng}, bobaShopName, map);
     let address = result["vicinity"]
     let placeId = result["place_id"]
+    let webAddress = result["url"]
 
     var ShopData = {
       placeId,
@@ -82,19 +83,20 @@ function addInfoWindowToMarker(ShopData, marker, map) {
 
     var detailsRequest = {
       placeId: ShopData.placeId,
-      fields: ['photos', 'photo', 'rating', 'formatted_phone_number']
+      fields: ['photos', 'photo', 'rating', 'formatted_phone_number', 'website']
     };
 
     var service = new google.maps.places.PlacesService(map);
     service.getDetails(detailsRequest, (place, status) => {
-      console.log(place)
-      var url = place.photos[3].getUrl({'maxWidth': 250, 'maxHeight': 200})
+      console.log(place, status)
+      var url = place.photos[3].getUrl({'maxWidth': 100, 'maxHeight': 100})
       const aboutLocation = `
         <h1>${marker.title}</h1>
         <p> <img src=${url}> </img> </p>
         <ul>
           <li><b>Address:</b> ${ShopData.address}</li>
           <li><b>Phone:</b> ${place.formatted_phone_number}</li>
+          <li><b>Website:</b> ${place.website} </li>
         </ul>
       `;
       console.log("mekkin window", aboutLocation)

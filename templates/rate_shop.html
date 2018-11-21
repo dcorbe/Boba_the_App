@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h2>Boba Scores</h2>
+
+    <h3>BobaShop: {{ marker.title }}</h3>
+
+  <ul>
+    {% for score in movie_scores %}
+      <li>
+          User ID #{{ score[0] }} : {{ score[1] }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <br>
+  <h3>Rate this movie!</h3>
+  <form action="/boba-shop-ratings" method="post">
+    <!-- how do I put the place ID in here?  -->
+    <input type="hidden" name="placeId" value={{ShopData.placeId}}>
+      Please pick one of the following from the drop down menu:
+      <select name="input_rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    <input type="submit" id="submit_rating" value="Submit"></input>
+  </form>
+
+{% endblock %}

@@ -33,7 +33,34 @@ function nearbySearchCallback(results, status) {
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.7886679, lng: -122.411499},
-    zoom: 15
+    zoom: 14,
+    // Pink color Scheme Added from SnazzyMaps
+    styles:[
+    {
+        "stylers": [{"hue": "#dd0d0d"}]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    }
+]
   });
   userInfoWindow = new google.maps.InfoWindow({map: map});
 
@@ -79,6 +106,7 @@ function addMarker(icon, position, title, map) {
 }
 
 function addInfoWindowToMarker(ShopData, marker, map) {
+  // changed from click to mouseover
   marker.addListener('click', () => {
 
     var detailsRequest = {
@@ -86,9 +114,20 @@ function addInfoWindowToMarker(ShopData, marker, map) {
       fields: ['photos', 'photo', 'rating', 'formatted_phone_number', 'website']
     };
 
+
     var service = new google.maps.places.PlacesService(map);
     service.getDetails(detailsRequest, (place, status) => {
       console.log(place, status)
+
+      if (!place.hasOwnProperty('website')) {
+        place.website = "This location doesn't have a website";
+      }
+
+      if (!place.hasOwnProperty('formatted_phone_number')) {
+        place.formatted_phone_number = "This shop doesn't have a phone Number"
+      }
+
+// if location doesn't have photo, put stock photo
       var url = place.photos[3].getUrl({'maxWidth': 100, 'maxHeight': 100})
       const aboutLocation = `
         <h1>${marker.title}</h1>

@@ -2,36 +2,22 @@
 <html>
 <head>
   <title>Boba Shops!</title>
-  <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 50%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+
 </head>
 
 <body>
   Boba shops in all shapes and sizes
   <hr>
 
-<!--   {% block flash_message %} -->
-	  <!-- {% with messages = get_flashed_messages() %}
-	     {% if messages %}
-	        <ul>
-	           {% for message in messages %}
-	           <li>{{ message }}</li>
-	           {% endfor %}
-	        </ul>
-	     {% endif %}
-	  {% endwith %} -->
-   <!-- {% endblock %} -->
+  <div id="footer">
+      <nav class="bottom-nav">
+          <a href="/about-boba">About</a>
+          <a href="/sign-up">Sign Up!</a>
+          <a href="/login"> Login </a>
+      </nav>
+  </div>
 
   {% block content %} put your content here {% endblock %}
 </body>

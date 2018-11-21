@@ -1,18 +1,43 @@
-{% extends 'base.html' %}
-{% block content %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <link href="/static/style.css" type="text/css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="Boba, The App" content= "Original content by Kbh">
+        <title>Boba, The App</title>
+				<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+				<script src="/static/milky.js"></script>
+    </head>
+<div id="navbar">
+<h1 class="homepage-header"><a href="/boba-map">Are you D.T.B.?</a></h1>
 
-<h1>BobaShops</h1>
-
-<h2></h2>
-<p><a href="/boba_map">Find a boba shop near you</a></p>
+</div>
 
 
 <body>
-	<div>
-		<a href="/login">Login</a><br>
-		<a href="/logout">Logout</a><br>
-		<a href="/registration_form">Register</a>
-	</div>
+
+	<div class="parallax">
+
+	<div class="scrollingdiv">
+			<div id="section-2">
+				<a href="#">Click me</a>
+				<a href="#">click me 2</a>
+					<div id="scroll-space"></div>
+					<img class="boba_and_straw" src="/static/imgs/boba_background.png" alt="bubbles & straw">
+		 			<br>
+
+					<div id="footer">
+						  <nav class="bottom-nav">
+									<a href="/boba-shop-ratings"> Rate! </a>
+									<a href="/about-boba">About</a>
+									<a href="/sign-up">Sign Up!</a>
+									<a href="/login"> Login </a>
+							</nav>
+					</div>
+			</div>
+</div>
+</div>
+
 </body>
 
-{% endblock %}
+</html>

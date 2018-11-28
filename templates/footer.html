@@ -1,0 +1,19 @@
+{% macro footer(logged_in) -%}
+	{% if logged_in %}
+		<div id="footer">
+			<nav class="bottom-nav">
+				<a href="/about-boba">About</a>
+				<a href="/sign-up">Sign Up!</a>
+				<a href="/logout"> Logout </a>
+			</nav>
+		</div>
+	{% else %}
+		<div id="footer">
+			<nav class="bottom-nav">
+				<a href="/about-boba">About</a>
+				<a href="/sign-up">Sign Up!</a>
+				<a href="/login"> Login </a>
+			</nav>
+		</div>
+	{% endif %}
+{%- endmacro %}

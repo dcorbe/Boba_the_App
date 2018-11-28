@@ -126,7 +126,7 @@ function addInfoWindowToMarker(ShopData, marker, map) {
       if (!place.hasOwnProperty('formatted_phone_number')) {
         place.formatted_phone_number = "This shop doesn't have a phone Number"
       }
-
+ // step 140 allows the title of the boba shop to be sent out to the python method
 // if location doesn't have photo, put stock photo
       var url = place.photos[3].getUrl({'maxWidth': 100, 'maxHeight': 100})
       const aboutLocation = `
@@ -136,6 +136,8 @@ function addInfoWindowToMarker(ShopData, marker, map) {
           <li><b>Address:</b> ${ShopData.address}</li>
           <li><b>Phone:</b> ${place.formatted_phone_number}</li>
           <li><b>Website:</b> ${place.website} </li>
+  
+          <li><a href="/boba-shop-ratings/${marker.title}/${ShopData.placeId}"> Rate me! </a></li>
         </ul>
       `;
       console.log("mekkin window", aboutLocation)

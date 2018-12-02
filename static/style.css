@@ -1,143 +1,137 @@
 
 #map {
-    position: relative;
-    height: 60%;
-    width: 60%;
-    margin: 1% 0 0 15%;
+		position: float;
+		height: 75%;
+		width: 80%;
+		margin: 1% 0 0 15%;
 }
 
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 
 * {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-    font-family: 'Work Sans', sans-serif;
-    letter-spacing: .075em;
+	-webkit-box-sizing: border-box;
+		 -moz-box-sizing: border-box;
+					box-sizing: border-box;
+		font-family: 'Work Sans', sans-serif;
+		letter-spacing: .075em;
 }
 
 
 .parallax {
-    /* The image used */
-    background-image: url(/static/imgs/boba_the_app_logo.svg);
+		/* The image used */
+		background-image: url(/static/imgs/boba_the_app_logo.svg);
 
-    /* Set a specific height */
-    min-height: 650px;
+		/* Set a specific height */
+		min-height: 650px;
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+		/* Create the parallax scrolling effect */
+		background-attachment: fixed;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+/* These are the buttons from the homepage */
+
+.down-to-boba {
+	position: absolute;
+	bottom: 250px;
+	z-index: 9;
+	left: 300px;
+	width: 40%;
 }
 
 
-/* .scrollingdiv {
-    height:800px;
-    padding-top: 5px;
-    font-size:36px;
-} */
-
-
-/* .homepage-header {
-  height: 5%;
-} */
 
 body {
-    text-align: center;
-    background-color: white;
-    font-family: "Verdana";
+		text-align: center;
+		background-color: white;
+		font-family: "Verdana";
 
 }
 
 .boba_and_straw {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
 /* Style the navbar From here to line 96 stackoverflow*/
 #navbar h1 {
-  overflow: hidden;
-  background-color: white;
-  height: 60px
+	overflow: hidden;
+	background-color: white;
+	height: 70px
 }
 
 /* Navbar links */
 #navbar a {
-  float: center;
-  /* height: 100px; */
-  display: block;
-  color: black;
-  text-align: center;
-  /* padding: 14px; */
-  text-decoration: none;
+	float: center;
+	/* height: 100px; */
+	display: block;
+	color: black;
+	text-align: center;
+	/* padding: 14px; */
+	text-decoration: none;
 }
 
 /* Page content */
 .content {
-  padding: 16px;
+	padding: 16px;
 }
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+#floating-panel {
+				position: absolute;
+				top: 45px;
+				left: 15%;
+				z-index: 5;
+				background-color: #fff;
+				padding: 5px;
+				border: 1px solid #999;
+				text-align: center;
+				font-family: 'Roboto','sans-serif';
+				line-height: 35px;
+				padding-left: 10px;
 }
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-/* .sticky + .content {
-  padding-top: 60px;
-} */
-
-
-/* #header {
-    text-align: center;
-    margin-left: 33%;
-    margin-right: 33%;
-
-} */
 
 #section-1 {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100px;
-    background-color: whitesmoke;
-    opacity: 1;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100px;
+		background-color: whitesmoke;
+		opacity: 1;
 	padding-left: 15%;
 	padding-right: 15%;
-    padding-top: 5%;
-    padding-bottom: 5%;
+		padding-top: 5%;
+		padding-bottom: 5%;
 
 }
 
 #scroll-space {
-  height: 100%;
-  opacity: 0;
-  background: transparent;
-  background-color: #eae2c7;
+	height: 100%;
+	opacity: 0;
+	background: transparent;
+	background-color: #eae2c7;
 }
 
 #section-2 {
-    height: 200vh;
-    /* min-height: 400px; */
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 50px;
+		height: 200vh;
+		/* min-height: 400px; */
+		overflow: hidden;
+		position: relative;
+		margin-bottom: 50px;
 }
 
 /* bleep blop blur effect not tagged to anything yet */
 
 .blureffect:hover {
-    -webkit-filter: blur(5px);
-    filter: blur(5px)
+		-webkit-filter: blur(5px);
+		filter: blur(5px)
 
 }
 
@@ -145,29 +139,29 @@ body {
 /* empty space after blurb and before boxes*/
 
 #empty-space {
-    width: 20%;
-    min-height: 60px;
-    box-sizing: border-box;
+		width: 20%;
+		min-height: 60px;
+		box-sizing: border-box;
 
 }
 
 #footer {
-  height: 50px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding-top: 1em;
-   padding-bottom: 0em;
-  background-color: #F41844;
-  text-align: center;
-  position: fixed;
-    line-height: 0;
+	height: 50px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding-top: 1em;
+	 padding-bottom: 0em;
+	background-color: #F41844;
+	text-align: center;
+	position: fixed;
+		line-height: 0;
 }
 
 .bottom-nav {
-    font-size: 20px;
-    float: right;
-    padding-right: 10px;
-    padding-bottom:20px;
-    color: black;
+		font-size: 20px;
+		float: right;
+		padding-right: 10px;
+		padding-bottom:20px;
+		color: black;
 }

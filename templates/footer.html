@@ -1,5 +1,5 @@
 {% macro footer(logged_in) -%}
-	{% if logged_in %}
+	{% if "logged_in_user" in session %}
 		<div id="footer">
 			<nav class="bottom-nav">
 				<a href="/about-boba">About</a>

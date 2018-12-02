@@ -1,15 +1,13 @@
-// GMaps: get location
-
 var map;
 var userInfoWindow;
 var pos;
 var ShopData;
+var geocoder;
 
 
 function nearbySearchCallback(results, status) {
-  // console.log(results, status)
+  console.log("I'm doing the nearbysearch call")
   results.forEach(function(result) {
-    // console.log("result: ", result["name"])
     let lat = result["geometry"]["location"].lat()
     let lng = result["geometry"]["location"].lng()
     let bobaShopName = result["name"]
@@ -29,11 +27,18 @@ function nearbySearchCallback(results, status) {
   })
 }
 
-// look into turning off features of the map
+
 function initMap() {
+  console.log("I'm initializing the map")
   map = new google.maps.Map(document.getElementById('map'), {
+    //why is this the center?
     center: {lat: 37.7886679, lng: -122.411499},
     zoom: 14,
+    mapTypeControl: false,
+    scaleControl: false,
+    scrollwheel: false,
+    navigationControl: false,
+    streetViewControl: false,
     // Pink color Scheme Added from SnazzyMaps
     styles:[
     {
@@ -60,7 +65,7 @@ function initMap() {
             }
         ]
     }
-]
+    ]
   });
   userInfoWindow = new google.maps.InfoWindow({map: map});
 
@@ -73,29 +78,68 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-
       // built in library function for nearbysearch instead of parsing json string from API call
       var service = new google.maps.places.PlacesService(map);
       // instead of using AJAX
       service.nearbySearch({
         location: pos,
-        radius: 2000,
+        radius: 10000,
         type: ['cafe'],
         keyword: ['boba']
       }, nearbySearchCallback);
 
-
       userInfoWindow.setPosition(pos);
       userInfoWindow.setContent('You are here.');
+
+      // this resets the center to the geolocated center
       map.setCenter(pos);
     }, function() {
       handleLocationError(true, userInfoWindow, map.getCenter());
     },
     {maximumAge: 600000, timeout: 5000, enableHighAccuracy: true});
-  } else {
+  }
+  else {
     // Browser doesn't support Geolocation
     handleLocationError(false, userInfoWindow, map.getCenter());
   }
+}
+
+//if floating panel is clicked then reinitializing the map for boba shops near new location
+
+function manual_input_address() {
+
+  var geocoder = new google.maps.Geocoder();
+  var address = document.getElementById('address').value;
+
+  console.log("Manual input address function blast off")
+  geocoder.geocode({'address': address}, function(results, status) {
+         if (status === 'OK') {
+           console.log((results[0].geometry.location.lat()));
+           console.log((results[0].geometry.location.lng()));
+          pos = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          };
+          userInfoWindow.setContent('You are here.');
+          map.setCenter(pos);
+
+          var service = new google.maps.places.PlacesService(map);
+          service.nearbySearch({
+            location: pos,
+            radius: 10000,
+            type: ['cafe'],
+            keyword: ['boba']
+          }, nearbySearchCallback);
+          resultsMap.setCenter(results[0].geometry.location);
+           var marker = new google.maps.InfoWindow({
+             map: map,
+             position: results[0].geometry.location});
+           }
+           else {
+                   alert('Geocode was not successful for the following reason: ' + status);
+                 }
+               });
+
 }
 
 
@@ -126,8 +170,7 @@ function addInfoWindowToMarker(ShopData, marker, map) {
       if (!place.hasOwnProperty('formatted_phone_number')) {
         place.formatted_phone_number = "This shop doesn't have a phone Number"
       }
- // step 140 allows the title of the boba shop to be sent out to the python method
-// if location doesn't have photo, put stock photo
+
       var url = place.photos[3].getUrl({'maxWidth': 100, 'maxHeight': 100})
       const aboutLocation = `
         <h1>${marker.title}</h1>
@@ -136,11 +179,11 @@ function addInfoWindowToMarker(ShopData, marker, map) {
           <li><b>Address:</b> ${ShopData.address}</li>
           <li><b>Phone:</b> ${place.formatted_phone_number}</li>
           <li><b>Website:</b> ${place.website} </li>
-  
+
           <li><a href="/boba-shop-ratings/${marker.title}/${ShopData.placeId}"> Rate me! </a></li>
         </ul>
       `;
-      console.log("mekkin window", aboutLocation)
+      // console.log("mekkin window", aboutLocation)
 
       const infoWindow = new google.maps.InfoWindow({
         content: aboutLocation,

@@ -24,34 +24,28 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
-	"""Homepage."""
+	"""Landing Page"""
 	#must do the following steps for each route to export var logged_in
-	logged_in = bool(session.get("logged_in_user"))
-	print(logged_in)
-	return render_template("homepage.html", logged_in=logged_in)
+	return render_template("homepage.html")
 
 
 @app.route("/boba-map")
 def find_bobashops():
 	"""Search for Boba Shops from Google Places nearbysearch & display list of shops"""
-	logged_in = bool(session.get("logged_in_user"))
-	return render_template("boba_map.html", key=os.getenv("GOOGLE_PLACES_KEY"),
-							logged_in=logged_in)
+	return render_template("boba_map.html", key=os.getenv("GOOGLE_PLACES_KEY"))
 
 
 @app.route('/about-boba')
 def render_about_me():
 	"""An about me page"""
-	logged_in = bool(session.get("logged_in_user"))
-	return render_template("about.html", logged_in=logged_in)
+	return render_template("about.html")
 
 
 @app.route("/sign-up", methods=["GET", "POST"])
 def register_process():
 	"""Registration form and process"""
-	logged_in = bool(session.get("logged_in_user"))
 	if request.method == "GET":
-		return render_template("registration_form.html", logged_in=logged_in)
+		return render_template("registration_form.html")
 
 
 	email = request.form.get("email")
@@ -59,6 +53,7 @@ def register_process():
 
 	if User.query.filter(User.email == email).first():
 		flash('An account with that email already exists!')
+		#import pdb; pdb.set_trace()
 		return render_template("registration_form.html")
 
 #good place to add password encryption because this checks that the account doesn't already exist
@@ -109,10 +104,11 @@ def change_login_logout_btn(value):
 @app.route("/boba-shop-ratings/<title>/<place_id>", methods=["GET", "POST"])
 def process_rating(title, place_id):
 	print(session)
+	logged_in = bool(session.get("logged_in_user"))
 
-	if session["logged_in_user"]:
+	if session.get("logged_in_user"):
 		user_id = session["logged_in_user"]
-		return render_template("rate_shop.html", title=title, place_id=place_id)
+		return render_template("rate_shop.html", title=title, place_id=place_id, logged_in=logged_in)
 
 	# new_score = int(request.form.get("input_rating"))
 	# placeId = int(request.form.get("placeId"))

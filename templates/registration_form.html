@@ -1,5 +1,5 @@
 
-{% extends 'base.html' %}
+{% extends 'base_simple.html' %}
 {% block content %}
 
 <h1>Sign up to be in the loop on boba!</h1>
@@ -14,14 +14,14 @@
 	<input type="submit" id="register_submit" value="Registrate!"></input>
 </form>
 
-      {% with messages = get_flashed_messages() %}
-         {% if messages %}
-            <ul>
-               {% for message in messages %}
-               <li>{{ message }}</li>
-               {% endfor %}
-            </ul>
-         {% endif %}
-      {% endwith %}
+			<!-- {% with messages = get_flashed_messages() %}
+				 {% if messages %}
+						<ul>
+							 {% for message in messages %}
+							 <li>{{ message }}</li>
+							 {% endfor %}
+						</ul>
+				 {% endif %}
+			{% endwith %} -->
 
 {% endblock %}

@@ -1,14 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h2>Boba Scores</h2>
+	 <h1>{{ title }}</h1>
+	 <!-- <h4> PlaceId: {{ place_id }}</h4> -->
+	 <h4> {{ address }} </h4>
 
-   <h3>BobaShop: {{ title }}</h3>
-   <h4> PlaceId: {{ place_id }}</h4>
 
 
-  <br>
-  <h3>Rate this Bobashop!</h3>
+	<br>
+	<h3>Rate this Bobashop!</h3>
+<br>
+	<tr>
+<td class="style10"><label>Boba Shop Rating: </label></td>
+<td class="style10">
+	<form action="/boba-shop-ratings/{{ title }}/{{ place_id }}/{{ address }}" method="post">
+		<input type="hidden" name="PlaceId" value={{ place_id }}>
+			Rating:
+			<select name="input_rating">
+				<option value="5">5</option>
+				<option value="4">4</option>
+				<option value="3">3</option>
+				<option value="2">2</option>
+				<option value="1">1</option>
+			</select>
+		<input type="submit" id="submit_rating" value="Submit"></input>
+	</td>
+</tr>
+
 
 
 {% endblock %}

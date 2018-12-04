@@ -101,33 +101,34 @@ def change_login_logout_btn(value):
 
 
 
-@app.route("/boba-shop-ratings/<title>/<place_id>", methods=["GET", "POST"])
-def process_rating(title, place_id):
+@app.route("/boba-shop-ratings/<title>/<place_id>/<address>", methods=["GET", "POST"])
+def process_rating(title, place_id, address):
 	print(session)
-	logged_in = bool(session.get("logged_in_user"))
+	# logged_in = bool(session.get("logged_in_user"))
+	new_score = (request.form.get("input_rating"))
+	shop_id = (request.form.get("shop_id"))
 
 	if session.get("logged_in_user"):
-		user_id = session["logged_in_user"]
-		return render_template("rate_shop.html", title=title, place_id=place_id, logged_in=logged_in)
-
-	# new_score = int(request.form.get("input_rating"))
-	# placeId = int(request.form.get("placeId"))
-	#
 	# if session["logged_in_user"]:
-	# 	user_id = session["logged_in_user"]
-	#
-	# 	if Rating.query.filter(Rating.user_id==user_id, Rating.movie_id==movie_id).first():
-	# 		user = Rating.query.filter(Rating.user_id==user_id, Rating.movie_id==movie_id).first()
-	# 		user.score = new_score
-	#
-	# 		flash("Your rating has been updated!")
-	#
-	# 	else:
-	# 		user = Rating(shop_id=shop_id, user_id=user_id, score=new_score)
-	# 		flash("Woot")
-	#
-	# 	db.session.add(user) # does this update or add new row?
-	# 	db.session.commit()
+		user_id = session["logged_in_user"]
+		return render_template("rate_shop.html", title=title, place_id=place_id, address=address)
+
+
+		if Rating.query.filter(Rating.user_id==user_id, Rating.shop_id==shop_id).first():
+			user = Rating.query.filter(Rating.user_id==user_id, Rating.shop_id==shop_id).first()
+			user.score = new_score
+
+			flash("Your rating has been updated!")
+			return redirect("/")
+
+		else:
+			user = Rating(shop_id=shop_id, user_id=user_id, score=new_score)
+			flash("Woot")
+
+		db.session.add(user) # does this update or add new row?
+		db.session.commit()
+
+		return redirect("/")
 
 	else:
 

@@ -2,7 +2,6 @@ var map;
 var userInfoWindow;
 var pos;
 var ShopData;
-var geocoder;
 
 
 function nearbySearchCallback(results, status) {
@@ -11,7 +10,14 @@ function nearbySearchCallback(results, status) {
     let lat = result["geometry"]["location"].lat()
     let lng = result["geometry"]["location"].lng()
     let bobaShopName = result["name"]
-    $('p').append(bobaShopName + "  ")
+    // the line below renders each seperate boba shop name
+    // $('p').append(bobaShopName + "  ");
+    // added this tonight race condition?
+    console.log("About to trigger event, Step 2")
+    $.event.trigger({
+	     type: "addBobaShop",
+	     shopData: { name: bobaShopName },
+    });
     let marker = addMarker('static/imgs/boba.png', {lat: lat, lng: lng}, bobaShopName, map);
     let address = result["vicinity"]
     let placeId = result["place_id"]
@@ -20,6 +26,7 @@ function nearbySearchCallback(results, status) {
     var ShopData = {
       placeId,
       address,
+      bobaShopName
     }
 
 
@@ -39,6 +46,7 @@ function initMap() {
     scrollwheel: false,
     navigationControl: false,
     streetViewControl: false,
+    draggable: true,
     // Pink color Scheme Added from SnazzyMaps
     styles:[
     {
@@ -104,6 +112,7 @@ function initMap() {
   }
 }
 
+
 //if floating panel is clicked then reinitializing the map for boba shops near new location
 
 function manual_input_address() {
@@ -120,8 +129,6 @@ function manual_input_address() {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           };
-          userInfoWindow.setContent('You are here.');
-          map.setCenter(pos);
 
           var service = new google.maps.places.PlacesService(map);
           service.nearbySearch({
@@ -130,9 +137,9 @@ function manual_input_address() {
             type: ['cafe'],
             keyword: ['boba']
           }, nearbySearchCallback);
-          resultsMap.setCenter(results[0].geometry.location);
+          map.setCenter(results[0].geometry.location);
            var marker = new google.maps.InfoWindow({
-             map: map,
+             // map: map,   <-- by commenting this out it gets rid of white empty pointer box
              position: results[0].geometry.location});
            }
            else {
@@ -150,7 +157,7 @@ function addMarker(icon, position, title, map) {
 }
 
 function addInfoWindowToMarker(ShopData, marker, map) {
-  // changed from click to mouseover
+  // change from click to mouseover
   marker.addListener('click', () => {
 
     var detailsRequest = {
@@ -161,7 +168,6 @@ function addInfoWindowToMarker(ShopData, marker, map) {
 
     var service = new google.maps.places.PlacesService(map);
     service.getDetails(detailsRequest, (place, status) => {
-      console.log(place, status)
 
       if (!place.hasOwnProperty('website')) {
         place.website = "This location doesn't have a website";
@@ -180,10 +186,10 @@ function addInfoWindowToMarker(ShopData, marker, map) {
           <li><b>Phone:</b> ${place.formatted_phone_number}</li>
           <li><b>Website:</b> ${place.website} </li>
 
-          <li><a href="/boba-shop-ratings/${marker.title}/${ShopData.placeId}"> Rate me! </a></li>
+          <li><a href="/boba-shop-ratings/${marker.title}/${ShopData.placeId}/${ShopData.address}"> Rate me! </a></li>
         </ul>
       `;
-      // console.log("mekkin window", aboutLocation)
+
 
       const infoWindow = new google.maps.InfoWindow({
         content: aboutLocation,

@@ -1,8 +1,8 @@
 
 #map {
-		position: float;
+		position: relative;
 		height: 75%;
-		width: 80%;
+		width: 70%;
 		margin: 1% 0 0 15%;
 }
 
@@ -36,7 +36,6 @@ html, body {
 		background-size: cover;
 }
 
-/* These are the buttons from the homepage */
 
 .down-to-boba {
 	position: absolute;
@@ -69,20 +68,28 @@ body {
 	height: 70px
 }
 
-/* Navbar links */
-#navbar a {
-	float: center;
-	/* height: 100px; */
-	display: block;
-	color: black;
-	text-align: center;
-	/* padding: 14px; */
-	text-decoration: none;
-}
-
 /* Page content */
 .content {
 	padding: 16px;
+}
+
+.shop-results {
+	position: fixed;
+	 top: 50px;
+	 left: 2px;
+	 width: 200px;
+	 height: 500px;
+	 border-style: solid;
+
+}
+
+.bfacts {
+	position: fixed;
+	 top: 50px;
+	 right: 2px !important;
+	 width: 200px;
+	 height: 492px;
+	 border-style: solid;
 }
 
 #floating-panel {

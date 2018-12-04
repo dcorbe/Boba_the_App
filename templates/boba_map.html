@@ -3,28 +3,54 @@
 
 {% block content %}
 
-<script type="text/javascript" src="static/gmaps.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <div id="map"></div>
-<div>
-	<p>
-		Here's the Boba Shops Near You!
-	</p>
-</div>
 
 
-<div id="boba-shop-results" class="well col-md-6 col-xs-12">
- </div>
+
+<!-- <div id="boba-shop-results" class="well col-md-6 col-xs-12">
+</div> -->
+ <!-- Was the div above even doing anything?  -->
+
 <!-- API call that includes google library places and initializes map -->
-
-<script async defer
-	src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=places&callback=initMap">
-</script>
 
 <div id="floating-panel">
 			<input id="address" type="textbox" value="City, State or Zip">
 			<input onClick="manual_input_address()" id="submit" type="button" value="Find Boba!">
 </div>
+
+<!-- this is for react -->
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="http://unpkg.com/babel-standalone"></script>
+
+
+ <div id="root"></div>
+ <div id="bobashops">replace...</div>
+ <script src="static/random_fact.jsx" type="text/jsx"></script>
+ <script src="static/react_test.jsx" type="text/jsx"></script>
+ <script type="text/jsx">
+		ReactDOM.render(<RandFact />, document.querySelector('div#root'));
+		ReactDOM.render(<ShopResults />, document.querySelector('#bobashops'));
+ </script>
+
+<!-- <div id="root2">
+	<p>
+		Here's the Boba Shops Near You!
+	</p>
+</div> -->
+<!-- <script src="static/boba_shop_results.jsx" text="text/jsx"></script>
+<script type="text/jsx">
+		ReactDOM.render(<ShopResults />, document.querySelector('div#root2'));
+</script> -->
+
+
+
+
+<script type="text/javascript" src="static/gmaps.js"></script>
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=places&callback=initMap">
+</script>
 
 
 {% endblock %}

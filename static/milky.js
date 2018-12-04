@@ -22,10 +22,5 @@ $(window).bind('scroll', function() {
 });
 
 
-
-
-// When the user scrolls the page, execute letsGetSticky
-window.onscroll = function() {letsGetSticky()};
-
 // Get the navbar
 var navbar = document.getElementById("navbar");

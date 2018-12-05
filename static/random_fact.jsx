@@ -29,7 +29,7 @@ getClicked() {
   render() {
     let fact = this.state.fact
     return(
-      <div className="bfacts text-center">
+      <div className="bfacts">
         <h1>Boba Facts</h1>
          <h3>{ fact }</h3>
         <button type="button" className="btn btn-primary" onClick={this.getClicked}>

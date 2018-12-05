@@ -6,6 +6,8 @@ var ShopData;
 
 function nearbySearchCallback(results, status) {
   console.log("I'm doing the nearbysearch call")
+  const shopList = [];
+
   results.forEach(function(result) {
     let lat = result["geometry"]["location"].lat()
     let lng = result["geometry"]["location"].lng()
@@ -14,14 +16,13 @@ function nearbySearchCallback(results, status) {
     // $('p').append(bobaShopName + "  ");
     // added this tonight race condition?
     console.log("About to trigger event, Step 2")
-    $.event.trigger({
-	     type: "addBobaShop",
-	     shopData: { name: bobaShopName },
-    });
     let marker = addMarker('static/imgs/boba.png', {lat: lat, lng: lng}, bobaShopName, map);
     let address = result["vicinity"]
     let placeId = result["place_id"]
     let webAddress = result["url"]
+    
+    // if I need to send anymore variables to JSX component, put here
+    shopList.push({ name: bobaShopName });
 
     var ShopData = {
       placeId,
@@ -32,6 +33,11 @@ function nearbySearchCallback(results, status) {
 
     addInfoWindowToMarker(ShopData, marker, map);
   })
+  //jquery event trigger takes arbitrary (custom) params
+  $.event.trigger({
+     type: "addBobaShop",
+     shopList: shopList ,
+  });
 }
 
 

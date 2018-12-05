@@ -68,6 +68,10 @@ body {
 	height: 70px
 }
 
+/* text at top center of registration form */
+.text-center {
+	font-size: 3em;
+}
 /* Page content */
 .content {
 	padding: 16px;
@@ -91,6 +95,11 @@ body {
 	 height: 492px;
 	 border-style: solid;
 }
+
+.shop-button{
+	font-size: 1em;
+}
+
 
 #floating-panel {
 				position: absolute;

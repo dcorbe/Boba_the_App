@@ -81,7 +81,7 @@ def login():
 			session["logged_in_user"] = q.filter(User.email == email).one().user_id
 			logged_in = True
 			flash("Logged in!")
-			return redirect("/")
+			return redirect("/boba-map")
 		else:
 			flash("The e-mail or password is incorrect.")
 			return render_template("login.html")

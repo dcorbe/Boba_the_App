@@ -1,10 +1,60 @@
-{% extends 'base.html' %}
-{% block content %}
+{% import 'footer.html' as footer %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Boba The App</title>
 
+	<!-- Bootstrap -->
+	<link rel="stylesheet"
+				href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Google Font -->
+	<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+	<!-- Stylesheet -->
+	<link rel="stylesheet"
+				href="/static/about.css">
+</head>
 
+<body>
 
-<h1>Hi, It's me, the about me page.</h1>
+	<!-- Static navbar -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/boba-map">
+						<img src="/static/imgs/boba_the_map2.png" id="boba_the_map" height="33">
+					</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+<!--          <li><a href="#">Log In</a></li>-->
+				</ul>
+			</div>
+		</div>
+	</nav>
 
+	<div class="container-fluid">
+		<div class="row">
+				<div>
+			<section class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+				<div>
+					<img src="/static/imgs/be_the_boba.png" alt="Be Boba my Friend" id="titleleft" width="33">
+					</div>
+					<p>
+				Boba the app is an app blah blah blah
+				</p>
+			</section>
+				</div>
+		</div>
+		<div>
+			{{ footer.footer(logged_in) }}
+		</div>
+	</div>
 
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-{% endblock %}
+</body>
+</html>

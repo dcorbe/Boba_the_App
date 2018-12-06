@@ -47,7 +47,7 @@ class ShopResults extends React.Component {
     console.log(this.state.names)
     return (
     <div className="shop-results">
-      <h1>Boba Shops:</h1>
+      <h1>Nearby:</h1>
       <h3>{ this.getShopButtons() }</h3>
     </div>
     );

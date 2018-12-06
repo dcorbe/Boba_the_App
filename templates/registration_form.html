@@ -1,74 +1,76 @@
-<!doctype html>
+{% import 'footer.html' as footer %}
+<!DOCTYPE html>
 <html>
 <head>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<link rel="stylesheet" type="text/css" href="/static/style.css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Boba The App</title>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet"
+				href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Google Font -->
+	<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+	<!-- Stylesheet -->
+	<link rel="stylesheet"
+					href="/static/registration.css">
 </head>
+
 <body>
-<div class="container">
-			<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="text-center">
-								Sign Up to be in the Loop on Boba
-											 & Rate Boba Stores 
-							</div>
-						</div>
-						<hr>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<form id="registration-form" action="/sign-up" method="post" role="form" style="display: block;">
-									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Sign Up">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-											</div>
-										</div>
-									</div>
-								</form>
-								<form id="register-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
-									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-									</div>
-									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-									</div>
-									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+
+	<!-- Static navbar -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/boba-map">
+						<img src="/static/imgs/boba_the_map2.png" id="boba_the_map" height="33">
+					</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+<!--          <li><a href="#">Log In</a></li>-->
+				</ul>
 			</div>
 		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+				<div>
+			<section class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+				<div>
+					<img src="/static/imgs/be_the_boba.png" alt="Be Boba my Friend" id="titleleft" width="33">
+					</div>
+					<p>
+					Make an account to rate boba shops and stay in
+						the loop about Boba the app promotions.
+				</p>
+			</section>
+				</div>
+		</div>
+		<div>
+			<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12 right">
+				<div class="col-md-4 col-md-offset-5 ">
+					<h2 id="signup" >Sign Up Today</h2>
+				<div id="centerme">
+					<form>
+						<input name="username" type="text" class="form-control" placeholder="Your Username">
+						<input name="password" type="password" class="form-control" placeholder="Your Password">
+					</form>
+					<div>
+							<a href="#0.1_" class="btn">Sign Up</a>
+					</div>
+						</div>
+				</div>
+			</section>
+		</div>
 	</div>
+
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<div>
+{{ footer.footer(logged_in) }}
+</div>
 </body>
 </html>

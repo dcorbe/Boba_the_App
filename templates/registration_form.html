@@ -29,7 +29,6 @@
 				<ul class="nav navbar-nav">
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-<!--          <li><a href="#">Log In</a></li>-->
 				</ul>
 			</div>
 		</div>
@@ -51,18 +50,15 @@
 		</div>
 		<div>
 			<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12 right">
-				<div class="col-md-4 col-md-offset-5 ">
-					<h2 id="signup" >Sign Up Today</h2>
-				<div id="centerme">
-					<form>
-						<input name="username" type="text" class="form-control" placeholder="Your Username">
-						<input name="password" type="password" class="form-control" placeholder="Your Password">
-					</form>
-					<div>
-							<a href="#0.1_" class="btn">Sign Up</a>
+					<div id="signup-container">
+						<h2 id="signup" >Sign Up Today</h2>
+						<form id="registration-form" action="/sign-up" method="post" role="form" >
+							<input name="email" id="email" type="text" class="form-control" placeholder="Your Username">
+							<input name="password" id="password" type="password" class="form-control" placeholder="Your Password">
+							<input type="submit" name="login-submit" id="register_submit" tabindex="4" class="btn" value="Sign Up">
+						</form>
 					</div>
-						</div>
-				</div>
+
 			</section>
 		</div>
 	</div>
@@ -70,7 +66,7 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<div>
-{{ footer.footer(logged_in) }}
+{{ footer.footer() }}
 </div>
 </body>
 </html>

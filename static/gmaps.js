@@ -11,6 +11,7 @@ function nearbySearchCallback(results, status) {
   results.forEach(function(result) {
     let lat = result["geometry"]["location"].lat()
     let lng = result["geometry"]["location"].lng()
+    console.log("lat:", lat, "lng:", lng)
     let bobaShopName = result["name"]
     // the line below renders each seperate boba shop name
     // $('p').append(bobaShopName + "  ");
@@ -20,7 +21,7 @@ function nearbySearchCallback(results, status) {
     let address = result["vicinity"]
     let placeId = result["place_id"]
     let webAddress = result["url"]
-    
+
     // if I need to send anymore variables to JSX component, put here
     shopList.push({ name: bobaShopName });
 
@@ -29,6 +30,8 @@ function nearbySearchCallback(results, status) {
       address,
       bobaShopName
     }
+
+    console.log(ShopData)
 
 
     addInfoWindowToMarker(ShopData, marker, map);
@@ -184,16 +187,21 @@ function addInfoWindowToMarker(ShopData, marker, map) {
       }
 
       var url = place.photos[3].getUrl({'maxWidth': 100, 'maxHeight': 100})
+
+      if (state.loggedIn == true) {
+        var rateMeLink = `<a href="/boba-shop-ratings/${marker.title}/${ShopData.placeId}/${ShopData.address}">Rate me!</a>`;
+      } else {
+        var rateMeLink = `<a href="/login">Login to Rate!</a>`
+      }
+
       const aboutLocation = `
         <h1>${marker.title}</h1>
         <p> <img src=${url}> </img> </p>
-        <ul>
-          <li><b>Address:</b> ${ShopData.address}</li>
-          <li><b>Phone:</b> ${place.formatted_phone_number}</li>
-          <li><b>Website:</b> ${place.website} </li>
 
-          <li><a href="/boba-shop-ratings/${marker.title}/${ShopData.placeId}/${ShopData.address}"> Rate me! </a></li>
-        </ul>
+          <div><b>Address:</b> ${ShopData.address}</div>
+          <div><b>Phone:</b> ${place.formatted_phone_number}</div>
+          <div><b>Website:</b> ${place.website} </div>
+          <div>${rateMeLink}</div>
       `;
 
 
@@ -203,13 +211,12 @@ function addInfoWindowToMarker(ShopData, marker, map) {
       }, );
       console.log("opening winnow")
       infoWindow.open(map, marker)
-
     })
 
    });
 }
 
-
+// can put this function back in if for some reason I need to handle errors
 function handleLocationError(browserHasGeolocation, userInfoWindow, pos) {
   userInfoWindow.setPosition(pos);
   userInfoWindow.setContent(browserHasGeolocation ?

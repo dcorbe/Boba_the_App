@@ -1,25 +1,25 @@
-from jinja2 import StrictUndefined
-
+import googlemaps
+import os
+import json
 from flask import Flask, render_template, redirect, request, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
+from jinja2 import StrictUndefined
+from pprint import pformat
+from sqlalchemy.sql import func, exists
 
 from model import User, Rating, BobaShop, connect_to_db, db
 
-import googlemaps
-
-from pprint import pformat
-import os
-import json
 
 key = os.getenv("GOOGLE_PLACES_KEY")
-
-
 app = Flask(__name__)
-
-
 app.secret_key = "wiggles"
-
 app.jinja_env.undefined = StrictUndefined
+
+
+def get_state(session):
+	return {
+		'loggedIn': bool(session.get('logged_in_user')),
+	}
 
 
 @app.route('/')
@@ -32,7 +32,9 @@ def index():
 @app.route("/boba-map")
 def find_bobashops():
 	"""Search for Boba Shops from Google Places nearbysearch & display list of shops"""
-	return render_template("boba_map.html", key=os.getenv("GOOGLE_PLACES_KEY"))
+	return render_template("boba_map.html",
+						   state=get_state(session),
+						   key=os.getenv("GOOGLE_PLACES_KEY"))
 
 
 @app.route('/about-boba')
@@ -56,18 +58,21 @@ def register_process():
 		#import pdb; pdb.set_trace()
 		return render_template("registration_form.html")
 
-#good place to add password encryption because this checks that the account doesn't already exist
+	#good place to add password encryption because this
+	#checks that the account doesn't already exist.
 	user = User(email=email, password=password)
 	db.session.add(user)
 	db.session.commit()
+
+	session["logged_in_user"] = user.user_id
+
 	flash('Success! You made an account')
-	return redirect("/login")
+	return redirect("/boba-map")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
 	"""Log in."""
-
 	if request.method == "GET":
 		return render_template("login.html")
 
@@ -76,15 +81,14 @@ def login():
 		password = request.form.get("password")
 
 		q = User.query
-
 		if q.filter((User.email == email), (User.password == password)).first():
 			session["logged_in_user"] = q.filter(User.email == email).one().user_id
-			logged_in = True
 			flash("Logged in!")
 			return redirect("/boba-map")
 		else:
 			flash("The e-mail or password is incorrect.")
 			return render_template("login.html")
+
 
 @app.route("/logout")
 def logout():
@@ -94,48 +98,59 @@ def logout():
 	flash("you're logged out")
 	return redirect("/")
 
-@app.route("/change-state")
-def change_login_logout_btn(value):
-	"""toggles button between login and logout"""
-	print("printing", value)
-
-
 
 @app.route("/boba-shop-ratings/<title>/<place_id>/<address>", methods=["GET", "POST"])
 def process_rating(title, place_id, address):
 	print(session)
-	# logged_in = bool(session.get("logged_in_user"))
 	new_score = (request.form.get("input_rating"))
-	shop_id = (request.form.get("shop_id"))
+	print('score: ', new_score)
 
-	if session.get("logged_in_user"):
-	# if session["logged_in_user"]:
-		user_id = session["logged_in_user"]
-		return render_template("rate_shop.html", title=title, place_id=place_id, address=address)
-
-
-		if Rating.query.filter(Rating.user_id==user_id, Rating.shop_id==shop_id).first():
-			user = Rating.query.filter(Rating.user_id==user_id, Rating.shop_id==shop_id).first()
-			user.score = new_score
-
-			flash("Your rating has been updated!")
-			return redirect("/")
-
-		else:
-			user = Rating(shop_id=shop_id, user_id=user_id, score=new_score)
-			flash("Woot")
-
-		db.session.add(user) # does this update or add new row?
-		db.session.commit()
-
-		return redirect("/")
-
-	else:
-
+	# checks if user is logged in, and if not flashes and redirects
+	if not session.get("logged_in_user"):
 		flash("You're not logged in!")
 		return redirect("/")
 
+	user_id = session["logged_in_user"]
+	boba_shop = BobaShop.query.filter(BobaShop.place_id==place_id).first()
 
+	# Handle GET's and POST's
+	if request.method == "GET":
+		# AVG rating starts at 0 for now, can fix this later!
+		avg_rating = (db.session
+					  .query(func.avg(Rating.score))
+					  .filter(Rating.boba_shop_id==boba_shop.shop_id)
+					  .scalar()) or 0
+
+		return render_template(
+			"rate_shop.html",
+			title=title,
+			place_id=place_id,
+			address=address,
+			avg_rating=f"{avg_rating:0.1f}", #format float to one demcimal place
+			state=get_state(session),
+		)
+	else:
+		rating = Rating.query.filter(
+			Rating.user_id==user_id,
+			Rating.boba_shop_id==boba_shop.shop_id
+		).first()
+
+		print('got existing: ', rating)
+		print('got boba shop: ', boba_shop)
+
+		if rating:
+			# If rating exists, update the score.
+			rating.score = new_score
+			flash("Your rating has been updated!")
+		else:
+			# If rating does not exist, create a new one.
+			rating = Rating(boba_shop_id=boba_shop.shop_id,
+							user_id=user_id, score=new_score)
+			flash("Woot")
+
+		db.session.add(rating)
+		db.session.commit()
+		return redirect("/boba-map")
 
 
 if __name__ == "__main__":

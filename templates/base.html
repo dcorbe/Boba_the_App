@@ -4,14 +4,18 @@
 <html>
 <head>
 	<title>BOBA!</title>
-
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
+	<!-- Bootstrap -->
+
+	<script type="text/javascript">
+		// This stores state from python, used stack overflow to Jsonify python from server
+		var state = {{ state|tojson }};
+	</script>
 
 </head>
 
 <body>
-
 	{% block content %} put your content here {% endblock %}
 </body>
-{{ footer.footer(logged_in) }}
+{{ footer.footer() }}
 </html>

@@ -4,7 +4,9 @@
 {% block content %}
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<div id="map"></div>
+<div id="map-container">
+	<div id="map"></div>
+</div>
 
 
 
@@ -28,13 +30,11 @@
 		</p>
  </div>
  <script src="static/random_fact.jsx" type="text/jsx"></script>
- <script src="static/react_test.jsx" type="text/jsx"></script>
+ <script src="static/nearby_boba.jsx" type="text/jsx"></script>
  <script type="text/jsx">
 		ReactDOM.render(<RandFact />, document.querySelector('div#root'));
 		ReactDOM.render(<ShopResults />, document.querySelector('#bobashops'));
  </script>
-
-
 
 <script type="text/javascript" src="static/gmaps.js"></script>
 <script async defer

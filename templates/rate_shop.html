@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
 	 <h1>{{ title }}</h1>
 	 <!-- <h4> PlaceId: {{ place_id }}</h4> -->
 	 <h4> {{ address }} </h4>
 
-	 <h6> This shop is rated: {{ title }}/5 </h6> 
+	 <h6> This shop is rated: {{ avg_rating }}/5 </h6>
 
 	<br>
 	<h3>Rate this Bobashop!</h3>
@@ -26,7 +25,6 @@
 		<input type="submit" id="submit_rating" value="Submit"></input>
 	</td>
 </tr>
-
 
 
 {% endblock %}

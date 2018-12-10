@@ -1,18 +1,43 @@
-{% extends 'base_simple.html' %}
+<html>
+	<head>
 
-{% block content %}
+<link href="/static/login.css" type="text/css" rel="stylesheet" >
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+<body id="LoginForm">
+<div class="container">
+<!-- <h1 class="form-heading">Login to Rate Boba Shops!</h1> -->
+<img src="/static/imgs/boba_or_death.png">
+<div class="login-form">
+<div class="main-div">
+		<div class="panel">
+	 <p>Please enter your email and password</p>
+	 </div>
+		<form id="Login" action="/login" method="post">
 
-<h1>Login</h1>
-
-<form action="/login" method="post">
-	<div>
-	Login E-mail: <input type="email" id="email" name="email"></input>
-	</div>
-	<div>
-	Login Password: <input type="password" id="password" name="password"></input>
-	</div>
-	<input type="submit" id="login_submit" value="Login!"></input>
-</form>
+				<div class="form-group">
 
 
-{% endblock %}
+						<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+
+				</div>
+
+				<div class="form-group">
+
+						<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+
+				</div>
+				<div class="forgot">
+				<a href="reset.html">Forgot password?</a>
+</div>
+				<button type="submit" class="btn btn-primary">Login</button>
+
+		</form>
+		</div>
+<p class="bottom-text"></p>
+</div></div>
+
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 // this is the fade graphics to turn the page into milk tea
 
 console.log("loaded")
-var fadeStart = 100, // 100px scroll or less will equiv to 1 opacity
-    fadeUntil = 600, // 200px scroll or more will equiv to 0 opacity
+var fadeStart = 0, // 100px scroll or less will equiv to 1 opacity
+    fadeUntil = 70, // 200px scroll or more will equiv to 0 opacity
     fading = $('#scroll-space');
 
 $(window).bind('scroll', function() {

@@ -7,6 +7,9 @@
 				<meta charset="utf-8">
 				<meta name="Boba, The App" content= "Original content by Kbh">
 				<title>Boba, The App</title>
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+				<!-- Google Font -->
+				<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
 				<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 				<script src="/static/milky.js"></script>
 		</head>
@@ -17,7 +20,7 @@
 
 <body>
 
-	<div class="parallax">
+<div class="parallax">
 
 	<div class="scrollingdiv">
 			<div id="section-2">
@@ -25,8 +28,9 @@
 					<h1 class="down-to-boba"><a href="/boba-map">Yes! Let's get this boba party started</a></h1>
 					<img class="boba_and_straw" src="/static/imgs/dtb.png" alt="bubbles & straw">
 					<br>
-			{{ footer.footer(logged_in) }}
-		</div>
+			{{ footer.footer() }}
+			</div>
+	</div>
 </div>
 
 </body>
